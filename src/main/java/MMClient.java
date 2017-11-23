@@ -1,12 +1,9 @@
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.RootScopeService.*;
 import io.grpc.StatusRuntimeException;
-import io.grpc.internal.AbstractManagedChannelImplBuilder;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 
 
@@ -14,11 +11,6 @@ import javax.imageio.ImageIO;
 import javax.net.ssl.SSLException;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,17 +21,7 @@ public class MMClient {
     private final ManagedChannel channel;
     private final MmServiceGrpc.MmServiceBlockingStub blockingStub;
 
-    /** Construct client connecting to HelloWorld server at {@code host:port}. */
     public MMClient(String host, int port) {
-
-//        this(ManagedChannelBuilder.forAddress(host, port)
-//                // Channels are secure by default (via SSL/TLS). For the example we disable TLS to avoid
-//                // needing certificates.
-//                .maxInboundMessageSize(1048576000)
-//                .sslContext(SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build())
-//                //.usePlaintext(true)
-//                .build());
-
         SslContext ssLContext = null;
 
         try {
@@ -49,11 +31,6 @@ public class MMClient {
         }
 
         if (ssLContext != null) {
-//            channel = AbstractManagedChannelImplBuilder.forAddress(host, port)
-//                    .maxInboundMessageSize(1048576000)
-//                    //.sslContext(ssLContext)
-//                    .build();
-//
             channel = NettyChannelBuilder.forAddress(host, port)
                     .maxInboundMessageSize(1048576000)
                     .sslContext(ssLContext)
@@ -89,34 +66,6 @@ public class MMClient {
         }
         logger.info("RoiX: " + response.getRoiX() + " RoiY: " + response.getRoiY());
     }
-
-//    public void getImgBlobs(String aver) {
-//        logger.info("Requesting image data blobs...");
-//        ImgPutRequest request = ImgPutRequest.newBuilder().setMessage("hm..").build();
-//
-//        InputStream is = null;
-//
-//        List<InputStream> iss = new ArrayList<>();
-//
-//        Iterator<ImgPutReply> blobIter;
-//
-//        blobIter = blockingStub.getImgBlob(request);
-//        for (int i = 1; blobIter.hasNext(); ++i) {
-//            ImgPutReply blob = blobIter.next();
-//
-//            byte[] data = blob.getData().toByteArray();
-//            long offset = blob.getOffset();
-//            String name = blob.getName();
-//
-//            try {
-//                is.read(data);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        new SequenceInputStream(Collections.enumeration(iss)).;
-//    }
 
     public void getImgData(String req) {
         logger.info("Requesting image data...");

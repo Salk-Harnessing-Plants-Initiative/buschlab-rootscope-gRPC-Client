@@ -10,18 +10,6 @@ package RootScopeService;
 service MmService {
     rpc GetRoi (RoiRequest) returns (RoiReply) {}
     rpc GetImgData (ImgDataRequest) returns (ImgDataReply) {}
-    rpc GetImgBlob(ImgPutRequest) returns (stream ImgPutReply) {}
-}
-
-message ImgPutRequest {
-    int32 status = 1;
-    string message = 2;
-}
-
-message ImgPutReply {
-    string name = 1;
-    bytes data = 2;
-    int64 offset = 3;
 }
 
 message RoiRequest {

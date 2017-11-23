@@ -1,7 +1,6 @@
 import com.google.protobuf.ByteString;
 import io.grpc.RootScopeService.*;
 import io.grpc.Server;
-import io.grpc.ServerBuilder;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -70,7 +69,6 @@ public class MMServer {
         server.blockUntilShutdown();
     }
 
-    //static class GreeterImpl extends GreeterGrpc.GreeterImplBase {
     static class MmServiceImpl extends MmServiceGrpc.MmServiceImplBase {
 
         int xRoi = 10;
@@ -98,58 +96,6 @@ public class MMServer {
             }
 
             responseObserver.onNext(builder.build());
-            responseObserver.onCompleted();
-        }
-
-        @Override
-        public void getImgBlob(ImgPutRequest req, StreamObserver<ImgPutReply> responseObserver) {
-            logger.info("tid: " +  Thread.currentThread().getId() + ", try to send ImgBlobs");
-//            StreamObserver<ImgPutReply> responseObserver = new StreamObserver<ImgPutReply>() {
-//
-//                @Override
-//                public void onNext(ImgPutReply value) {
-//                    logger.info("Client response onNext");
-//                }
-//
-//                @Override
-//                public void onError(Throwable t) {
-//                    logger.info("Client response onError");
-//                }
-//
-//                @Override
-//                public void onCompleted() {
-//                    logger.info("Client response onCompleted");
-//                }
-//            };
-           // StreamObserver<ImgPutReply> requestObserver = mAsyncStub.getBlob(responseObserver);
-            try {
-                String filename = "/Users/alexander.bindeus/Desktop/middlepng.png";
-                File file = new File(filename);
-                if (!file.exists()) {
-                    logger.info("File does not exist");
-                    return;
-                }
-                try {
-                    BufferedInputStream bInputStream = new BufferedInputStream(new FileInputStream(file));
-                    int bufferSize = 512 * 1024; // 512k
-                    byte[] buffer = new byte[bufferSize];
-                    int tmp = 0;
-                    int size = 0;
-                    while ((tmp = bInputStream.read(buffer)) > 0) {
-                        size += tmp;
-                        ByteString byteString = ByteString.copyFrom(buffer);
-                        ImgPutReply reply = ImgPutReply.newBuilder().setName(filename).setData(byteString).setOffset(tmp).build();
-                        responseObserver.onNext(reply);
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } catch (RuntimeException e) {
-                responseObserver.onError(e);
-                throw e;
-            }
             responseObserver.onCompleted();
         }
     }
