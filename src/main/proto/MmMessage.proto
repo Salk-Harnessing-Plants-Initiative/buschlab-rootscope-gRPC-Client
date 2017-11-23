@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.RootScopeService";
+option java_outer_classname = "MmMessage";
+option objc_class_prefix = "MMM";
+
+package RootScopeService;
+
+service MmService {
+    rpc GetRoi (RoiRequest) returns (RoiReply) {}
+    rpc GetImgData (ImgDataRequest) returns (ImgDataReply) {}
+    rpc GetImgBlob(ImgPutRequest) returns (stream ImgPutReply) {}
+}
+
+message ImgPutRequest {
+    int32 status = 1;
+    string message = 2;
+}
+
+message ImgPutReply {
+    string name = 1;
+    bytes data = 2;
+    int64 offset = 3;
+}
+
+message RoiRequest {
+    string aver = 1;
+}
+
+message RoiReply {
+    int32 roiX = 1;
+    int32 roiY = 2;
+}
+
+message ImgDataRequest {
+    string aver = 1;
+}
+
+message ImgDataReply {
+     bytes imgData = 1;
+}
