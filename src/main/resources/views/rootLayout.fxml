@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import org.controlsfx.control.MaskerPane?>
+
+<AnchorPane fx:id="rootAnchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.RootLayoutController">
+      <BorderPane fx:id="rootLayout" layoutX="183.0" layoutY="115.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+                <Menu mnemonicParsing="false" text="File">
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <MenuItem mnemonicParsing="false" text="About" />
+                </Menu>
+            </MenuBar>
+         </top>
+         <center>
+            <StackPane fx:id="rootStack" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <MaskerPane fx:id="rootMasker" prefHeight="200.0" prefWidth="200.0" />
+            </StackPane>
+         </center>
+      </BorderPane>
+</AnchorPane>

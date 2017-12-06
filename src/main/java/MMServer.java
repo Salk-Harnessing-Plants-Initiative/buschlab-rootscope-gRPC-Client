@@ -1,5 +1,5 @@
+import at.ac.oeaw.gmi.busch.RootScopeService.*;
 import com.google.protobuf.ByteString;
-import io.grpc.RootScopeService.*;
 import io.grpc.Server;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyServerBuilder;
@@ -34,15 +34,12 @@ public class MMServer {
         }
 
         logger.info("Server started, listening on " + port);
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                // Use stderr here since the logger may have been reset by its JVM shutdown hook.
-                System.err.println("*** shutting down gRPC server since JVM is shutting down");
-                MMServer.this.stop();
-                System.err.println("*** server shut down");
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            // Use stderr here since the logger may have been reset by its JVM shutdown hook.
+            System.err.println("*** shutting down gRPC server since JVM is shutting down");
+            MMServer.this.stop();
+            System.err.println("*** server shut down");
+        }));
     }
 
     private void stop() {
@@ -61,7 +58,7 @@ public class MMServer {
     }
 
     /**
-     * Main launches the server from the command line.
+     * app.Main launches the server from the command line.
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         final MMServer server = new MMServer();

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "io.grpc.RootScopeService";
+option java_package = "at.ac.oeaw.gmi.busch.RootScopeService";
 option java_outer_classname = "MmMessage";
 option objc_class_prefix = "MMM";
 
@@ -10,10 +10,19 @@ package RootScopeService;
 service MmService {
     rpc GetRoi (RoiRequest) returns (RoiReply) {}
     rpc GetImgData (ImgDataRequest) returns (ImgDataReply) {}
+    rpc GetCameraProperties(CameraPropertiesRequest) returns (CameraPropertiesReply) {}
+}
+
+message CameraPropertiesRequest {
+    string req = 1;
+}
+
+message CameraPropertiesReply {
+    string reply = 1;
 }
 
 message RoiRequest {
-    string aver = 1;
+    string req = 1;
 }
 
 message RoiReply {
@@ -22,9 +31,9 @@ message RoiReply {
 }
 
 message ImgDataRequest {
-    string aver = 1;
+    string req = 1;
 }
 
 message ImgDataReply {
-     bytes imgData = 1;
+    bytes imgData = 1;
 }

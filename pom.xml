@@ -11,9 +11,10 @@
     <description>rootscope - Grpc connection</description>
 
     <properties>
-        <grpc.version>1.7.0</grpc.version>
+        <grpc.version>1.8.0</grpc.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -39,11 +40,18 @@
             <version>${grpc.version}</version>
             <type>pom</type>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.netty/netty-tcnative-boringssl-static -->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/io.netty/netty-tcnative-boringssl-static &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>io.netty</groupId>-->
+            <!--<artifactId>netty-tcnative-boringssl-static</artifactId>-->
+            <!--<version>2.0.7.Final</version>-->
+            <!--<classifier>${os.detected.classifier}</classifier>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-tcnative-boringssl-static</artifactId>
-            <version>2.0.7.Final</version>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.14</version>
         </dependency>
     </dependencies>
 
@@ -63,7 +71,7 @@
                 <configuration>
                     <protocArtifact>com.google.protobuf:protoc:3.4.0:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.7.0:exe:${os.detected.classifier}</pluginArtifact>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.8.0:exe:${os.detected.classifier}</pluginArtifact>
                     <protoSourceRoot>${basedir}/src/main/proto</protoSourceRoot>
                 </configuration>
                 <executions>
