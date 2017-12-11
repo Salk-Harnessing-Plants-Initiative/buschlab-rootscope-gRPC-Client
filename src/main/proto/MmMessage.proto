@@ -10,19 +10,10 @@ package RootScopeService;
 service MmService {
     rpc GetRoi (RoiRequest) returns (RoiReply) {}
     rpc GetImgData (ImgDataRequest) returns (ImgDataReply) {}
-    rpc GetCameraProperties(CameraPropertiesRequest) returns (CameraPropertiesReply) {}
-}
-
-message CameraPropertiesRequest {
-    string req = 1;
-}
-
-message CameraPropertiesReply {
-    string reply = 1;
 }
 
 message RoiRequest {
-    string req = 1;
+    string aver = 1;
 }
 
 message RoiReply {
@@ -31,9 +22,9 @@ message RoiReply {
 }
 
 message ImgDataRequest {
-    string req = 1;
+    string aver = 1;
 }
 
 message ImgDataReply {
-    bytes imgData = 1;
+     bytes imgData = 1;
 }

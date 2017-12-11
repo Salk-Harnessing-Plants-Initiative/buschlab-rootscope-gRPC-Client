@@ -16,10 +16,8 @@ public class Main {
         MMClient client = null;
 
         try {
-            client = new MMClient("10.60.32.60", 50051);
-            client.getRoi("test");
-
-            System.out.println("camera props: " + client.getCameraProperties("test"));
+            //client = new MMClient("10.60.32.60", 50051);
+            client = new MMClient("10.60.32.42", 50051);
 
             InitFxGui.run(client);
 
@@ -27,8 +25,7 @@ public class Main {
         } finally {
             try {
                 client.shutdown();
-                return;
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e ) {
                 e.printStackTrace();
             }
         }
